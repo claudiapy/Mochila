@@ -4,3 +4,9 @@
 *.jar
 *.war
 *.ear
+
+# Archivos de Netbeans
+nbproject/
+build/
+dist/
+build.xml
