@@ -1,4 +1,3 @@
-
 package py.una.pol.ia.mochila;
 
 /**
@@ -11,10 +10,17 @@ public class Item {
     private int valor;
     private int peso;
 
-    Item(String n, int v, int p) {
-        nombre = n;
-        valor = v;
-        peso = p;
+    /**
+     * Construye un Item con los parametros.
+     *
+     * @param nombre
+     * @param valor
+     * @param peso
+     */
+    Item(String nombre, int valor, int peso) {
+        this.nombre = nombre;
+        this.valor = valor;
+        this.peso = peso;
     }
 
     public String getNombre() {
@@ -25,7 +31,7 @@ public class Item {
         this.nombre = nombre;
     }
 
-    public double getValor() {
+    public int getValor() {
         return valor;
     }
 
@@ -33,7 +39,7 @@ public class Item {
         this.valor = valor;
     }
 
-    public double getPeso() {
+    public int getPeso() {
         return peso;
     }
 

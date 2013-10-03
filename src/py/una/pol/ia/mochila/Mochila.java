@@ -30,7 +30,7 @@ public abstract class Mochila{
         this.pesoMaximo = peso;
     }
 
-    abstract void resolverProblema();
+    public abstract void resolverProblema();
     
     public List<Item> getAlmacen() {
         return items;

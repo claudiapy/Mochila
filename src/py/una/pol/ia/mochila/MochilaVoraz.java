@@ -22,6 +22,7 @@ public class MochilaVoraz extends Mochila {
         super(items, peso);
     } 
 
+    @Override
     public void resolverProblema() {
         // Comparador para ordenar los elementos del almacen por valor
         Comparator cmp = new Comparator<Item>() {

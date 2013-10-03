@@ -1,0 +1,1 @@
+El nombre voraz proviene de que, en cada paso, el algoritmo escoge el mejor "pedazo" que es capaz de "comer" sin preocuparse del futuro. Nunca deshace una decisión ya tomada: una vez incorporado un candidato a la solución permanece ahí hasta el final; y cada vez que un candidato es rechazado, lo es para siempre. 

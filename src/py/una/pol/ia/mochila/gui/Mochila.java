@@ -4,6 +4,9 @@
  */
 package py.una.pol.ia.mochila.gui;
 
+import py.una.pol.ia.mochila.MochilaUtil;
+import py.una.pol.ia.mochila.MochilaVoraz;
+
 /**
  *
  * @author claudia
@@ -26,11 +29,11 @@ public class Mochila extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtPesoMaximo = new javax.swing.JTextField();
-        txtNroElementos = new javax.swing.JTextField();
         lblPesoMaximo = new javax.swing.JLabel();
         lblNroElementos = new javax.swing.JLabel();
         btnCalcular = new javax.swing.JButton();
+        txtPesoMaximo = new javax.swing.JFormattedTextField();
+        txtNroElementos = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -45,46 +48,56 @@ public class Mochila extends javax.swing.JFrame {
             }
         });
 
+        txtPesoMaximo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,###"))));
+
+        txtNroElementos.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,###"))));
+        txtNroElementos.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(66, 66, 66)
+                .addGap(49, 49, 49)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblNroElementos)
                     .addComponent(lblPesoMaximo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 18, Short.MAX_VALUE)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtNroElementos, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
-                    .addComponent(txtPesoMaximo))
-                .addGap(59, 59, 59))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(164, 164, 164)
+                    .addComponent(txtPesoMaximo, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+                    .addComponent(txtNroElementos))
+                .addGap(44, 44, 44))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnCalcular)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(177, 177, 177))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtPesoMaximo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblPesoMaximo))
+                .addGap(36, 36, 36)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblPesoMaximo)
+                    .addComponent(txtPesoMaximo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblNroElementos)
-                    .addComponent(txtNroElementos, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39)
+                    .addComponent(txtNroElementos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addComponent(btnCalcular)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addGap(28, 28, 28))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularActionPerformed
-            // TODO add your handling code here:
+        // TODO add your handling code here:
+        int numeroElementos = Integer.parseInt( txtNroElementos.getText());
+        int pesoMaximo = Integer.parseInt(txtPesoMaximo.getText());
+        py.una.pol.ia.mochila.Mochila mochila = new MochilaVoraz(MochilaUtil.generarElementos(numeroElementos), pesoMaximo);
+        mochila.resolverProblema();
+        MochilaUtil.mostrarMochila(mochila);
     }//GEN-LAST:event_btnCalcularActionPerformed
 
     /**
@@ -125,7 +138,7 @@ public class Mochila extends javax.swing.JFrame {
     private javax.swing.JButton btnCalcular;
     private javax.swing.JLabel lblNroElementos;
     private javax.swing.JLabel lblPesoMaximo;
-    private javax.swing.JTextField txtNroElementos;
-    private javax.swing.JTextField txtPesoMaximo;
+    private javax.swing.JFormattedTextField txtNroElementos;
+    private javax.swing.JFormattedTextField txtPesoMaximo;
     // End of variables declaration//GEN-END:variables
 }
