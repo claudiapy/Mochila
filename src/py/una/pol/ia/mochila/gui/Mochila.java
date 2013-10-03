@@ -1,15 +1,12 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package py.una.pol.ia.mochila.gui;
 
 import py.una.pol.ia.mochila.MochilaUtil;
 import py.una.pol.ia.mochila.MochilaVoraz;
 
 /**
- *
- * @author claudia
+ * @author Claudia Valenzuela
+ * @version 1.0
  */
 public class Mochila extends javax.swing.JFrame {
 
@@ -49,8 +46,10 @@ public class Mochila extends javax.swing.JFrame {
         });
 
         txtPesoMaximo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,###"))));
+        txtPesoMaximo.setText("300");
 
         txtNroElementos.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,###"))));
+        txtNroElementos.setText("100");
         txtNroElementos.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -93,8 +92,10 @@ public class Mochila extends javax.swing.JFrame {
 
     private void btnCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularActionPerformed
         // TODO add your handling code here:
-        int numeroElementos = Integer.parseInt( txtNroElementos.getText());
-        int pesoMaximo = Integer.parseInt(txtPesoMaximo.getText());
+        int numeroElementos = 0;
+        int pesoMaximo = 0;
+        numeroElementos = Integer.parseInt( txtNroElementos.getText());
+        pesoMaximo = Integer.parseInt(txtPesoMaximo.getText());
         py.una.pol.ia.mochila.Mochila mochila = new MochilaVoraz(MochilaUtil.generarElementos(numeroElementos), pesoMaximo);
         mochila.resolverProblema();
         MochilaUtil.mostrarMochila(mochila);
