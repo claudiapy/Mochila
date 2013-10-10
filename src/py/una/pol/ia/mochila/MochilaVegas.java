@@ -18,13 +18,18 @@ public class MochilaVegas extends Mochila {
     private int peso;
     private int valor;
     private int nodosExp = 0;
-    private double pesoMochila = 0;//peso actual de la mochila
 
     public int getNodosExp() {
         return nodosExp;
     }
 
-    public double getPesoMochila() {
+    public int getPesoMochila() {
+        int pesoMochila = 0;
+        if (mochila != null) {
+            for (Item i : mochila) {
+                pesoMochila = pesoMochila + i.getPeso();
+            }
+        }
         return pesoMochila;
     }
 
@@ -38,8 +43,6 @@ public class MochilaVegas extends Mochila {
 
     @Override
     public void resolverProblema() {
-
-
 
         int posicion = 0;
         int valorAnt = 0;

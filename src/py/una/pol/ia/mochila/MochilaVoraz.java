@@ -17,10 +17,10 @@ public class MochilaVoraz extends Mochila {
     public MochilaVoraz(List items, int peso) {
         super(items, peso);
     }
-    private double pesoMochila = 0;//peso actual de la mochila
+    private int pesoMochila = 0;//peso actual de la mochila
     private int nodosExpandidos = 0;//nodos expandidos
 
-    public double getPesoMochila() {
+    public int getPesoMochila() {
         return pesoMochila;
     }
 
