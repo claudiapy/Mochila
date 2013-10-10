@@ -1,7 +1,11 @@
-
 package py.una.pol.ia.mochila.gui;
 
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import py.una.pol.ia.mochila.Item;
+import py.una.pol.ia.mochila.MochilaBacktracking;
 import py.una.pol.ia.mochila.MochilaUtil;
+import py.una.pol.ia.mochila.MochilaVegas;
 import py.una.pol.ia.mochila.MochilaVoraz;
 
 /**
@@ -31,6 +35,8 @@ public class Mochila extends javax.swing.JFrame {
         btnCalcular = new javax.swing.JButton();
         txtPesoMaximo = new javax.swing.JFormattedTextField();
         txtNroElementos = new javax.swing.JFormattedTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tableResult = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -50,26 +56,50 @@ public class Mochila extends javax.swing.JFrame {
 
         txtNroElementos.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,###"))));
         txtNroElementos.setText("100");
-        txtNroElementos.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtNroElementos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        tableResult.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Algoritmo", "Tiempo(ms)", "Nodos Expandidos", "Peso Obtenido"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tableResult.setName("Resultados"); // NOI18N
+        jScrollPane1.setViewportView(tableResult);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(49, 49, 49)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblNroElementos)
-                    .addComponent(lblPesoMaximo))
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtPesoMaximo, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
-                    .addComponent(txtNroElementos))
-                .addGap(44, 44, 44))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnCalcular)
-                .addGap(177, 177, 177))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnCalcular))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(49, 49, 49)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblNroElementos)
+                            .addComponent(lblPesoMaximo))
+                        .addGap(18, 52, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtPesoMaximo, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+                            .addComponent(txtNroElementos))))
+                .addGap(44, 44, 44))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -82,9 +112,11 @@ public class Mochila extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblNroElementos)
                     .addComponent(txtNroElementos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCalcular)
-                .addGap(28, 28, 28))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -94,11 +126,60 @@ public class Mochila extends javax.swing.JFrame {
         // TODO add your handling code here:
         int numeroElementos = 0;
         int pesoMaximo = 0;
-        numeroElementos = Integer.parseInt( txtNroElementos.getText());
+        long tiVoraz = 0;
+        long tfVoraz = 0;
+        long tiVegas = 0;
+        long tfVegas = 0;
+        long tiBack = 0;
+        long tfBack = 0;
+        long tiempoVoraz;
+        long tiempoVegas;
+        long tiempoBack;
+        numeroElementos = Integer.parseInt(txtNroElementos.getText());
         pesoMaximo = Integer.parseInt(txtPesoMaximo.getText());
-        py.una.pol.ia.mochila.Mochila mochila = new MochilaVoraz(MochilaUtil.generarElementos(numeroElementos), pesoMaximo);
-        mochila.resolverProblema();
-        MochilaUtil.mostrarMochila(mochila);
+        List<Item> almacen = MochilaUtil.generarElementos(numeroElementos);
+
+        //Algoritmo Voraz
+        MochilaVoraz mochilaVoraz = new MochilaVoraz(almacen, pesoMaximo);
+        tiVoraz = System.currentTimeMillis();
+        mochilaVoraz.resolverProblema();
+        tfVoraz = System.currentTimeMillis();
+        MochilaUtil.mostrarMochila(mochilaVoraz);
+        tiempoVoraz = tfVoraz - tiVoraz;
+        System.out.println("Tiempo ejecución Voraz: " + tiempoVoraz);
+
+        //Algoritmo Vegas
+        MochilaVegas mochilaVega = new MochilaVegas(almacen, pesoMaximo);
+        tiVegas = System.currentTimeMillis();
+        mochilaVega.resolverProblema();
+        tfVegas = System.currentTimeMillis();
+        MochilaUtil.mostrarMochila(mochilaVega);
+        tiempoVegas = tfVegas - tiVegas;
+        System.out.println("Tiempo ejecución Vegas: " + tiempoVegas);
+        
+
+        //Algoritmo Backtracking
+//        MochilaBacktracking mochilaBack = new MochilaBacktracking(almacen, pesoMaximo);
+//        tiBack=System.currentTimeMillis();
+//        mochilaBack.resolverProblema();
+//        tfBack=System.currentTimeMillis();
+//        MochilaUtil.mostrarMochila(mochilaBack);
+//        tiempoBack=tfBack-tiBack;
+//        System.out.println("Tiempo ejecución Backtracking: "+tiempoBack);
+//       
+
+        // datos para la tabla
+        DefaultTableModel model = (DefaultTableModel) tableResult.getModel();
+
+        Object[][] rows = new Object[][]{
+            //{"BackTracking", new Long(tiempoBack), 0, 0},
+            {"Las Vegas", new Long(tiempoVegas), mochilaVega.getNodosExp(), mochilaVega.getPesoMochila()},
+            {"Voraz", new Long(tiempoVoraz), mochilaVoraz.getNodosExpandidos(), mochilaVoraz.getPesoMochila()}};
+
+        for (Object[] row : rows) {
+            model.addRow(row);
+        }
+
     }//GEN-LAST:event_btnCalcularActionPerformed
 
     /**
@@ -137,8 +218,10 @@ public class Mochila extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCalcular;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblNroElementos;
     private javax.swing.JLabel lblPesoMaximo;
+    private javax.swing.JTable tableResult;
     private javax.swing.JFormattedTextField txtNroElementos;
     private javax.swing.JFormattedTextField txtPesoMaximo;
     // End of variables declaration//GEN-END:variables

@@ -1,4 +1,3 @@
-
 package py.una.pol.ia.mochila;
 
 import java.util.Collections;
@@ -18,6 +17,17 @@ public class MochilaVoraz extends Mochila {
     public MochilaVoraz(List items, int peso) {
         super(items, peso);
     }
+    private double pesoMochila = 0;//peso actual de la mochila
+    private int nodosExpandidos = 0;//nodos expandidos
+
+    public double getPesoMochila() {
+        return pesoMochila;
+    }
+
+    public int getNodosExpandidos() {
+        return this.nodosExpandidos;
+    }
+
 
     @Override
     public void resolverProblema() {
@@ -25,20 +35,12 @@ public class MochilaVoraz extends Mochila {
         Comparator cmp = new Comparator<Item>() {
             @Override
             public int compare(Item x, Item y) {
-                return (int) (x.getValor()/x.getPeso() - y.getValor()/y.getPeso());
+                return (int) (x.getValor() / x.getPeso() - y.getValor() / y.getPeso());
             }
         };
 
-        System.out.println("items generados");
-        MochilaUtil.printListItems(items);
         Collections.sort(items, cmp);  // ordena usando el comparador anterior
-        System.out.println("items ordenados");
-        MochilaUtil.printListItems(items);
         Collections.reverse(items);   // reversa el orden de los elementos
-        System.out.println("items generados descendentemente");
-        MochilaUtil.printListItems(items);
-
-        double pesoMochila = 0;//peso actual de la mochila
         int posicion = 0;
         while (pesoMochila < pesoMaximo && posicion < items.size()) {
             Item tmp = items.get(posicion); // item candidato
@@ -50,10 +52,9 @@ public class MochilaVoraz extends Mochila {
             if (pesoMochila + tmp.getPeso() <= pesoMaximo) {
                 mochila.add(tmp);
                 pesoMochila += tmp.getPeso();
+                nodosExpandidos++;//cuenta los nodos expandidos
             }
             posicion++;
         }
     }
-
-
 }

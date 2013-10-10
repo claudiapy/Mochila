@@ -9,6 +9,8 @@ public class Item {
     private String nombre;
     private int valor;
     private int peso;
+    private boolean usado;
+
 
     /**
      * Construye un Item con los parametros.
@@ -45,5 +47,16 @@ public class Item {
 
     public void setPeso(int peso) {
         this.peso = peso;
+    }
+    public void setUsado(boolean usado) {
+        this.usado = usado;
+    }
+
+    public boolean getUsado() {
+        return usado;
+    }
+    @Override
+    public String toString() {
+        return "Objeto{" + "nombre=" + nombre + ", peso=" + peso + ", valor=" + valor + ", usado=" + usado + '}';
     }
 }
