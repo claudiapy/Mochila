@@ -39,6 +39,7 @@ public class Mochila extends javax.swing.JFrame {
         tableResult = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("PSR - Problema de la Mochila");
 
         lblPesoMaximo.setText("Peso Máximo:");
 
