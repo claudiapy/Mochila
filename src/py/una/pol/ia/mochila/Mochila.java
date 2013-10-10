@@ -12,11 +12,13 @@ public abstract class Mochila {
     protected List<Item> items;
     protected List<Item> mochila;
     protected int pesoMaximo;
+    protected int nodosExpandidos;
 
     public Mochila() {
         this.mochila = new ArrayList();
         this.items = new ArrayList();
-        pesoMaximo = 0;
+        this.pesoMaximo = 0;
+        this.nodosExpandidos = 0;
     }
 
     /**
@@ -28,6 +30,7 @@ public abstract class Mochila {
         this.mochila = new ArrayList();
         this.items = items;
         this.pesoMaximo = peso;
+        this.nodosExpandidos = 0;
     }
 
     public abstract void resolverProblema();
@@ -56,6 +59,10 @@ public abstract class Mochila {
         this.pesoMaximo = pesoMaximo;
     }
 
+    public int getNodosExpandidos() {
+        return nodosExpandidos;
+    }
+    
     public int getPesoMochila() {
         int pesoMochila = 0;
         if (mochila != null) {

@@ -17,13 +17,7 @@ public class MochilaVegas extends Mochila {
     private boolean mark[];
     private int peso;
     private int valor;
-    private int nodosExp = 0;
-
-    public int getNodosExp() {
-        return nodosExp;
-    }
-
-
+    
     public MochilaVegas() {
         super();
     }
@@ -38,7 +32,7 @@ public class MochilaVegas extends Mochila {
         int posicion = 0;
         int valorAnt = 0;
         while (posicion < items.size()) {
-            nodosExp++;
+            nodosExpandidos++;
             generarSolRndom(posicion);
 
             if (valorAnt < valor) {
@@ -55,8 +49,6 @@ public class MochilaVegas extends Mochila {
             }
             posicion++;
         }
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        System.out.printf("Las Vegas - Nodos Expandidos: %d ", nodosExp);
     }
 
     //genera una solucion randonomica en cada llamado
@@ -74,7 +66,7 @@ public class MochilaVegas extends Mochila {
         List<Integer> intLista = generarIntLista(posicion);
         Collections.shuffle(intLista);
         while (peso < pesoMaximo && intLista.size() > 0) {
-            nodosExp++;
+            nodosExpandidos++;
             indice = intLista.remove(intLista.size() - 1);
             peso += items.get(indice).getPeso();
             valor += items.get(indice).getValor();

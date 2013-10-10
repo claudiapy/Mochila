@@ -52,10 +52,10 @@ public class Mochila extends javax.swing.JFrame {
             }
         });
 
-        txtPesoMaximo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,###"))));
-        txtPesoMaximo.setText("300");
+        txtPesoMaximo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        txtPesoMaximo.setText("100");
 
-        txtNroElementos.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,###"))));
+        txtNroElementos.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
         txtNroElementos.setText("100");
         txtNroElementos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
@@ -88,18 +88,18 @@ public class Mochila extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnCalcular))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
+                        .addGap(89, 89, 89)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblNroElementos)
                             .addComponent(lblPesoMaximo))
-                        .addGap(18, 115, Short.MAX_VALUE)
+                        .addGap(18, 18, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtPesoMaximo, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
                             .addComponent(txtNroElementos))))
-                .addGap(44, 44, 44))
+                .addGap(80, 80, 80))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -124,7 +124,12 @@ public class Mochila extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularActionPerformed
-        // TODO add your handling code here:
+        
+        DefaultTableModel model = (DefaultTableModel) tableResult.getModel();
+        int nroRows = model.getRowCount();
+        for (int i = 0; i < nroRows; i++) {
+            model.removeRow(0);
+        }
         int numeroElementos = 0;
         int pesoMaximo = 0;
         long tiVoraz = 0;
@@ -160,21 +165,18 @@ public class Mochila extends javax.swing.JFrame {
         
 
         //Algoritmo Backtracking
-//        MochilaBacktracking mochilaBack = new MochilaBacktracking(almacen, pesoMaximo);
-//        tiBack=System.currentTimeMillis();
-//        mochilaBack.resolverProblema();
-//        tfBack=System.currentTimeMillis();
-//        MochilaUtil.mostrarMochila(mochilaBack);
-//        tiempoBack=tfBack-tiBack;
-//        System.out.println("Tiempo ejecución Backtracking: "+tiempoBack);
-//       
-
+        MochilaBacktracking mochilaBack = new MochilaBacktracking(almacen, pesoMaximo);
+        tiBack=System.currentTimeMillis();
+        mochilaBack.resolverProblema();
+        tfBack=System.currentTimeMillis();
+        MochilaUtil.mostrarMochila(mochilaBack);
+        tiempoBack=tfBack-tiBack;
+        System.out.println("Tiempo ejecución Backtracking: "+tiempoBack);
+       
         // datos para la tabla
-        DefaultTableModel model = (DefaultTableModel) tableResult.getModel();
-
         Object[][] rows = new Object[][]{
-            //{"BackTracking", new Long(tiempoBack), 0, 0},
-            {"Las Vegas", new Long(tiempoVegas), mochilaVega.getNodosExp(), mochilaVega.getPesoMochila(),mochilaVega.getValorMochila()},
+            {"BackTracking", new Long(tiempoBack), mochilaBack.getNodosExpandidos(), mochilaBack.getPesoMochila(),mochilaBack.getValorMochila()},
+            {"Las Vegas", new Long(tiempoVegas), mochilaVega.getNodosExpandidos(), mochilaVega.getPesoMochila(),mochilaVega.getValorMochila()},
             {"Voraz", new Long(tiempoVoraz), mochilaVoraz.getNodosExpandidos(), mochilaVoraz.getPesoMochila(),mochilaVoraz.getValorMochila()}};
 
         for (Object[] row : rows) {

@@ -17,12 +17,6 @@ public class MochilaVoraz extends Mochila {
     public MochilaVoraz(List items, int peso) {
         super(items, peso);
     }
-    private int nodosExpandidos = 0;//nodos expandidos
-
-    public int getNodosExpandidos() {
-        return this.nodosExpandidos;
-    }
-
 
     @Override
     public void resolverProblema() {
@@ -40,6 +34,7 @@ public class MochilaVoraz extends Mochila {
         int posicion = 0;
         while (pesoMochila < pesoMaximo && posicion < items.size()) {
             Item tmp = items.get(posicion); // item candidato
+            nodosExpandidos++;//cuenta los nodos expandidos
 
             /*  Se realiza el control de restricciones, si el peso actual de la
              *  mochila sumado al peso del item que se esta probando no supera
@@ -48,7 +43,6 @@ public class MochilaVoraz extends Mochila {
             if (pesoMochila + tmp.getPeso() <= pesoMaximo) {
                 mochila.add(tmp);
                 pesoMochila += tmp.getPeso();
-                nodosExpandidos++;//cuenta los nodos expandidos
             }
             posicion++;
         }
