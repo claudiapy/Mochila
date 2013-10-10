@@ -26,14 +26,12 @@ public class MochilaUtil {
     }
 
     public static void mostrarMochila(Mochila mochila) {
-        int pesoMochila = 0;
-        int valorMochila = 0;
+        int pesoMochila = mochila.getPesoMochila();
+        int valorMochila = mochila.getValorMochila();
         System.out.println();
         for (Item e : mochila.getMochila()) {
             System.out.printf("%s\tV(%d)\tP(%d)\tR(%d)%n",e.getNombre(),
                     e.getValor(),e.getPeso(),(int)(e.getValor()/e.getPeso()));
-            pesoMochila += e.getPeso();
-            valorMochila += e.getValor();
         }
         System.out.println("------");
         System.out.printf("Peso  = %,12d %n", pesoMochila);

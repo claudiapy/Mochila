@@ -23,15 +23,6 @@ public class MochilaVegas extends Mochila {
         return nodosExp;
     }
 
-    public int getPesoMochila() {
-        int pesoMochila = 0;
-        if (mochila != null) {
-            for (Item i : mochila) {
-                pesoMochila = pesoMochila + i.getPeso();
-            }
-        }
-        return pesoMochila;
-    }
 
     public MochilaVegas() {
         super();

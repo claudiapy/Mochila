@@ -7,18 +7,18 @@ import java.util.List;
  * @author Claudia Valenzuela
  * @version 1.0
  */
-public abstract class Mochila{
-    
+public abstract class Mochila {
+
     protected List<Item> items;
     protected List<Item> mochila;
-    protected int  pesoMaximo;
+    protected int pesoMaximo;
 
     public Mochila() {
         this.mochila = new ArrayList();
         this.items = new ArrayList();
         pesoMaximo = 0;
     }
-    
+
     /**
      *
      * @param items
@@ -31,7 +31,7 @@ public abstract class Mochila{
     }
 
     public abstract void resolverProblema();
-    
+
     public List<Item> getAlmacen() {
         return items;
     }
@@ -54,5 +54,25 @@ public abstract class Mochila{
 
     public void setPesoMaximo(int pesoMaximo) {
         this.pesoMaximo = pesoMaximo;
+    }
+
+    public int getPesoMochila() {
+        int pesoMochila = 0;
+        if (mochila != null) {
+            for (Item i : mochila) {
+                pesoMochila = pesoMochila + i.getPeso();
+            }
+        }
+        return pesoMochila;
+    }
+
+    public int getValorMochila() {
+        int valorMochila = 0;
+        if (mochila != null) {
+            for (Item i : mochila) {
+                valorMochila = valorMochila + i.getValor();
+            }
+        }
+        return valorMochila;
     }
 }

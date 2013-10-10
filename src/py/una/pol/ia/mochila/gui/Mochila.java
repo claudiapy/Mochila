@@ -64,11 +64,11 @@ public class Mochila extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Algoritmo", "Tiempo(ms)", "Nodos Expandidos", "Peso Obtenido"
+                "Algoritmo", "Tiempo(ms)", "Nodos Expandidos", "Peso Obtenido", "Valor"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -92,7 +92,7 @@ public class Mochila extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblNroElementos)
                             .addComponent(lblPesoMaximo))
-                        .addGap(18, 52, Short.MAX_VALUE)
+                        .addGap(18, 115, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtPesoMaximo, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
                             .addComponent(txtNroElementos))))
@@ -116,7 +116,7 @@ public class Mochila extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCalcular)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -174,8 +174,8 @@ public class Mochila extends javax.swing.JFrame {
 
         Object[][] rows = new Object[][]{
             //{"BackTracking", new Long(tiempoBack), 0, 0},
-            {"Las Vegas", new Long(tiempoVegas), mochilaVega.getNodosExp(), mochilaVega.getPesoMochila()},
-            {"Voraz", new Long(tiempoVoraz), mochilaVoraz.getNodosExpandidos(), mochilaVoraz.getPesoMochila()}};
+            {"Las Vegas", new Long(tiempoVegas), mochilaVega.getNodosExp(), mochilaVega.getPesoMochila(),mochilaVega.getValorMochila()},
+            {"Voraz", new Long(tiempoVoraz), mochilaVoraz.getNodosExpandidos(), mochilaVoraz.getPesoMochila(),mochilaVoraz.getValorMochila()}};
 
         for (Object[] row : rows) {
             model.addRow(row);

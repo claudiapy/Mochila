@@ -17,12 +17,7 @@ public class MochilaVoraz extends Mochila {
     public MochilaVoraz(List items, int peso) {
         super(items, peso);
     }
-    private int pesoMochila = 0;//peso actual de la mochila
     private int nodosExpandidos = 0;//nodos expandidos
-
-    public int getPesoMochila() {
-        return pesoMochila;
-    }
 
     public int getNodosExpandidos() {
         return this.nodosExpandidos;
@@ -39,6 +34,7 @@ public class MochilaVoraz extends Mochila {
             }
         };
 
+        int pesoMochila = 0;//peso actual de la mochila
         Collections.sort(items, cmp);  // ordena usando el comparador anterior
         Collections.reverse(items);   // reversa el orden de los elementos
         int posicion = 0;
