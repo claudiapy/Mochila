@@ -28,7 +28,7 @@ public class MochilaUtil {
     public static void mostrarMochila(Mochila mochila) {
         int pesoMochila = mochila.getPesoMochila();
         int valorMochila = mochila.getValorMochila();
-        int nodosExpandidos = mochila.getNodosExpandidos();
+        long nodosExpandidos = mochila.getNodosExpandidos();
         System.out.println();
         for (Item e : mochila.getMochila()) {
             System.out.printf("%s\tV(%d)\tP(%d)\tR(%d)%n",e.getNombre(),

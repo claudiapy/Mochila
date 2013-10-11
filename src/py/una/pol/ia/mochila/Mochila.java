@@ -12,7 +12,7 @@ public abstract class Mochila {
     protected List<Item> items;
     protected List<Item> mochila;
     protected int pesoMaximo;
-    protected int nodosExpandidos;
+    protected long nodosExpandidos;
 
     public Mochila() {
         this.mochila = new ArrayList();
@@ -59,7 +59,7 @@ public abstract class Mochila {
         this.pesoMaximo = pesoMaximo;
     }
 
-    public int getNodosExpandidos() {
+    public long getNodosExpandidos() {
         return nodosExpandidos;
     }
     
