@@ -1,0 +1,15 @@
+ El algoritmo de
+Backtracking encuentra siempre la mejor solución al problema de la mochila pero
+se vuelve inviable en términos de tiempo de ejecución cuando el número de
+objetos a ser examinados es muy elevado. En base a esto, el algoritmo puede
+utilizarse en aquellos casos en los que el tiempo de ejecución no esté limitado
+y se desee obtener la solución óptima al problema.
+
+
+En
+los casos en los que se requiera un tiempo de ejecución limitado y se acepte al
+menos una solución que no sea la óptima, el algoritmo voraz y las vegas son una
+buena alternativa. En este aspecto, según las pruebas experimentales, puede
+notarse que ante el problema de la mochila, Backtracking devuelve la mejor
+solución, el algoritmo voraz no siempre devuelve la mejor solución pero es la
+que más se acerca a ella, en comparación con el algoritmo de las Vegas.
